@@ -8,6 +8,6 @@ spec = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.require_paths = ['lib']
   s.test_files = Dir.glob('spec/*.rb')
-  s.version = '0.4.1'
+  s.version = '0.4.2'
   s.author = 'thechrisoshow'
 end
