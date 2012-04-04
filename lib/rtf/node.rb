@@ -1292,21 +1292,22 @@ module RTF
          @width = @height = nil
 
          # Check what we were given.
-         src = source
-         src.binmode if src.instance_of?(File)
-         src = File.new(source, 'rb') if source.instance_of?(String)
-         if src.instance_of?(File)
-            # Check the files existence and accessibility.
-            if !File.exist?(src.path)
-               RTFError.fire("Unable to find the #{File.basename(source)} file.")
-            end
-            if !File.readable?(src.path)
-               RTFError.fire("Access to the #{File.basename(source)} file denied.")
-            end
-            @source = src
-         else
-            RTFError.fire("Unrecognised source specified for ImageNode.")
-         end
+         # src = source
+         src = @source = open(source)
+         # src.binmode if src.instance_of?(File)
+         # src = File.new(source, 'rb') if source.instance_of?(String)
+         # if src.instance_of?(File)
+         #    # Check the files existence and accessibility.
+         #    if !File.exist?(src.path)
+         #       RTFError.fire("Unable to find the #{File.basename(source)} file.")
+         #    end
+         #    if !File.readable?(src.path)
+         #       RTFError.fire("Access to the #{File.basename(source)} file denied.")
+         #    end
+         #    @source = src
+         # else
+         #    RTFError.fire("Unrecognised source specified for ImageNode.")
+         # end
 
          @type = get_file_type(src)
          if @type == nil
@@ -1365,6 +1366,7 @@ module RTF
          @source.each_byte {|byte| @read << byte} if @source.eof? == false
          @read.each do |byte|
             text << ("%02x" % byte)
+            # text << byte
             count += 1
             if count == 40
                text << "\n"
