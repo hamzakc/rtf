@@ -1364,16 +1364,22 @@ module RTF
          text << "\\picw#{@width}\\pich#{@height}\\bliptag#{@id}"
          text << "\\#{@type.id2name}\n"
          @source.each_byte {|byte| @read << byte} if @source.eof? == false
+         
+         text_intermediary = StringIO.new
          @read.each do |byte|
-            text << ("%02x" % byte)
-            # text << byte
+            text_intermediary << ("%02x" % byte)
+
             count += 1
             if count == 40
-               text << "\n"
+               text_intermediary << "\n"
+               text << text_intermediary.string
                count = 0
+               text_intermediary = StringIO.new
             end
          end
-         #text << "\n}}\\par}"
+         if count != 0
+            text << text_intermediary.string
+         end
          text << "\n}}"
 
          text.string
