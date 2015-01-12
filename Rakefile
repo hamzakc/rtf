@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "rtf"
+    s.name = "panmind-rtf"
     s.summary = 'Ruby library to create rich text format documents.'
     s.email = "marcello.barnaba@gmail.com"
     s.homepage = "http://github.com/Panmind/rtf"
